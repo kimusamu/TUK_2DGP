@@ -13,12 +13,11 @@ delay(1)
 
 def run_circle():
     print('CIRCLE')
-
-    r = 200
+    cx, cy, r = 400, 300, 200
 
     for deg in range(0, 360, 5):
-        x = r * math.cos(math.radians(deg))
-        y = r * math.sin(math.radians(deg))
+        x = cx + r * math.cos(math.radians(deg))
+        y = cy + r * math.sin(math.radians(deg))
         clear_canvas_now()
         grass.draw_now(400, 30)
         character.draw_now(x, y)
