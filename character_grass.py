@@ -1,73 +1,26 @@
 from pico2d import *
-import math
 
-open_canvas(800, 600)
+open_canvas()
 
-grass = load_image('grass.png')
 character = load_image('character.png')
+grass = load_image('grass.png')
 
-def square_move():
-    x = 400
-    y = 90
-    
-    while(x < 780):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        delay(0.01)
+clear_canvas_now()
+grass.draw_now(400, 30)
+character.draw_now(400 , 90)
 
-    while(y < 560):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        y = y + 2
-        delay(0.01)
+delay(5)
 
-    while(x > 20):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 2
-        delay(0.01)
+def run_circle():
+    print('CIRCLE')
+    pass
 
-    while(y > 90):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        y = y - 2
-        delay(0.01)
-
-    while(x < 400):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        delay(0.01)
-
-def circle_move():
-    x = 400
-    y = 90
-
-    angle = 180
-    r = 200
-    rx = 400
-    ry = 300
-
-    while(angle != 178):
-        if(angle == 360):
-            angle = 0
-
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = r * math.sin(angle / 360 * 2 * math.pi) + rx
-        y = r * math.cos(angle / 360 * 2 * math.pi) + ry
-        angle = angle + 2
-        delay(0.01)
+def run_rectangle():
+    print('RECTANGLE')
+    pass
 
 while(True):
-    square_move()
-    circle_move()
+    run_circle()
+    run_rectangle()
 
 close_canvas()
