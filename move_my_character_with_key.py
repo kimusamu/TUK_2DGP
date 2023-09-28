@@ -2,7 +2,7 @@ from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
-grass = load_image('TUK_GROUND.png')
+tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('drill4_sprite.png')
 
 
@@ -47,8 +47,26 @@ def handle_events():
 
 running = True
 x = 800 // 2
+y = 90
 frame = 0
 
+dir_x = 0
+dir_y = 0
+
+while running:
+    clear_canvas()
+    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    character.clip_draw(frame * 100, 0, 100, 100, x, y)
+
+    update_canvas()
+    handle_events()
+
+    frame = (frame + 1) % 8
+
+    x += dir_x * 30
+    y += dir_y * 30
+
+    delay(0.1)
 
 close_canvas()
 
