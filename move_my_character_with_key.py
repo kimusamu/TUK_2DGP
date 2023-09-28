@@ -52,19 +52,16 @@ def handle_events():
                 dir_y += 1
 
 def idle_or_run_character():
-    if (idle_or_run == False):
-        if (right_left == True):
-            character.clip_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, x, y)
-
-        elif (right_left == False):
+    if not idle_or_run:
+        if not right_left:
             character.clip_composite_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, 0, 'h', x, y, idle_size_x, idle_size_y)
-
-    elif (idle_or_run == True):
-        if (right_left == True):
-            character.clip_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, x, y)
-
-        elif (right_left == False):
+        else:
+            character.clip_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, x, y)
+    else:
+        if not right_left:
             character.clip_composite_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, 0, 'h', x, y, run_size_x, run_size_y)
+        else:
+            character.clip_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, x, y)
 
 running = True
 idle_or_run = False
@@ -95,10 +92,10 @@ while running:
 
     idle_or_run_character()
 
-    if (idle_or_run == False):
+    if not idle_or_run:
         idle_frame = (idle_frame + 1) % 3
 
-    elif (idle_or_run == True):
+    else:
         run_frame = (run_frame + 1) % 8
         if (run_frame > 6):
             run_frame = 3
@@ -107,16 +104,10 @@ while running:
     handle_events()
 
     x += dir_x * 30
-    if(x > 1250):
-        x = 1250
-    elif(x < 0):
-        x = 0
+    x = min(max(x, 0), 1250)
 
     y += dir_y * 30
-    if(y > 1000):
-        y = 1000
-    elif(y < 0):
-        y = 0
+    y = min(max(y, 0), 1000)
 
     delay(0.1)
 
