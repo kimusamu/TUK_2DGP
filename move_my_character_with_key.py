@@ -6,8 +6,7 @@ tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('drill4_sprite.png')
 
 def handle_events():
-    global running, dir_x, dir_y, idle_or_run, frame_y, right_left
-
+    global running, dir_x, dir_y, idle_or_run, frame_y, left_right, idle_frame_size_x, run_frame_size_x
     events = get_events()
 
     for event in events:
@@ -17,13 +16,13 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             idle_or_run = True
             if event.key == SDLK_RIGHT:
-                right_left = True
-                frame_y = 200
+                left_right = True
+                frame_y = 110
                 dir_x += 1
 
             elif event.key == SDLK_LEFT:
-                right_left = False
-                frame_y = 200
+                left_right = False
+                frame_y = 110
                 dir_x -= 1
 
             elif event.key == SDLK_UP:
@@ -51,21 +50,29 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 dir_y += 1
 
+    if (frame_y == 110):
+        idle_frame_size_x = 32
+        run_frame_size_x = 42
+
+    else:
+        idle_frame_size_x = 34
+        run_frame_size_x = 8
+
 def idle_or_run_character():
     if not idle_or_run:
-        if not right_left:
-            character.clip_composite_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, 0, 'h', x, y, idle_size_x, idle_size_y)
-        else:
+        if not left_right:
             character.clip_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, x, y)
-    else:
-        if not right_left:
-            character.clip_composite_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, 0, 'h', x, y, run_size_x, run_size_y)
         else:
+            character.clip_composite_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, 0, 'h', x, y, idle_size_x, idle_size_y)
+    else:
+        if not left_right:
             character.clip_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, x, y)
+        else:
+            character.clip_composite_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, 0, 'h', x, y, run_size_x, run_size_y)
 
 running = True
 idle_or_run = False
-right_left = True
+left_right = True
 
 x = 800 // 2
 y = 90
@@ -76,13 +83,13 @@ idle_frame = 0
 run_frame = 3
 frame_y = 300
 
-idle_frame_size = 73
 idle_frame_size_x = 34
+idle_frame_size = 73
 idle_size_x = 80
 idle_size_y = 90
 
-run_frame_size = 100
 run_frame_size_x = 8
+run_frame_size = 100
 run_size_x = 96
 run_size_y = 100
 
@@ -96,6 +103,7 @@ while running:
 
     else:
         run_frame = (run_frame + 1) % 8
+
         if (run_frame > 6):
             run_frame = 3
 
