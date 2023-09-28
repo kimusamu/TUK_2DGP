@@ -89,7 +89,6 @@ run_size_y = 100
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-
     idle_or_run_character()
 
     if not idle_or_run:
