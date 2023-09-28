@@ -1,9 +1,9 @@
 from pico2d import *
 
-
-open_canvas()
-grass = load_image('grass.png')
-character = load_image('animation_sheet.png')
+TUK_WIDTH, TUK_HEIGHT = 1280, 1024
+open_canvas(TUK_WIDTH, TUK_HEIGHT)
+grass = load_image('TUK_GROUND.png')
+character = load_image('drill4_sprite.png')
 
 
 def handle_events():
