@@ -7,22 +7,47 @@ character = load_image('drill4_sprite.png')
 
 
 def handle_events():
-    global running
-
-    # fill here
+    global running, dir_x, dir_y
 
     events = get_events()
+
     for event in events:
         if event.type == SDL_QUIT:
             running = False
-        # fill here
+
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_RIGHT:
+                dir_x += 1
+
+            elif event.key == SDLK_LEFT:
+                dir_x -= 1
+
+            elif event.key == SDLK_UP:
+                dir_y += 1
+
+            elif event.key == SDLK_DOWN:
+                dir_y -= 1
+
+            elif event.key == SDLK_ESCAPE:
+                running = False
+
+        elif event.type == SDL_KEYUP:
+            if event.key == SDLK_RIGHT:
+                dir_x -= 1
+
+            elif event.key == SDLK_LEFT:
+                dir_x += 1
+
+            elif event.key == SDLK_UP:
+                dir_y -= 1
+
+            elif event.key == SDLK_DOWN:
+                dir_y += 1
 
 
 running = True
 x = 800 // 2
 frame = 0
-
-# fill here
 
 
 close_canvas()
