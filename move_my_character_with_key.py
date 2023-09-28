@@ -107,7 +107,16 @@ while running:
     handle_events()
 
     x += dir_x * 30
+    if(x > 1250):
+        x = 1250
+    elif(x < 0):
+        x = 0
+
     y += dir_y * 30
+    if(y > 1000):
+        y = 1000
+    elif(y < 0):
+        y = 0
 
     delay(0.1)
 
