@@ -74,8 +74,8 @@ running = True
 idle_or_run = False
 left_right = True
 
-x = 800 // 2
-y = 90
+x = TUK_WIDTH // 2
+y = TUK_HEIGHT // 2
 dir_x = 0
 dir_y = 0
 
