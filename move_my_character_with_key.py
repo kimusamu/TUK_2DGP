@@ -51,6 +51,18 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 dir_y += 1
 
+def idle_or_run_character():
+    if (idle_or_run == False):
+        if (right_left == True):
+            character.clip_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, x,
+                                y)
+        elif (right_left == False):
+            character.clip_composite_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, 0, 'h', x, y, idle_size_x, idle_size_y)
+    elif (idle_or_run == True):
+        if (right_left == True):
+            character.clip_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, x, y)
+        elif (right_left == False):
+            character.clip_composite_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, 0, 'h', x, y, run_size_x, run_size_y)
 
 running = True
 idle_or_run = False
@@ -79,20 +91,15 @@ while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
 
-    if(idle_or_run == False):
-        if(right_left == True):
-            character.clip_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, x, y)
-        elif (right_left == False):
-            character.clip_composite_draw(idle_frame * idle_frame_size + idle_frame_size_x, frame_y, idle_size_x, idle_size_y, 0, 'h', x, y, idle_size_x, idle_size_y)
+    if (idle_or_run == False):
+        idle_or_run_character()
         idle_frame = (idle_frame + 1) % 3
 
-    elif(idle_or_run == True):
-        if(right_left == True):
-            character.clip_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, x, y)
-        elif(right_left == False):
-            character.clip_composite_draw(run_frame * run_frame_size - run_frame_size_x, frame_y, run_size_x, run_size_y, 0, 'h', x, y, run_size_x, run_size_y)
+    elif (idle_or_run == True):
+        idle_or_run_character()
         run_frame = (run_frame + 1) % 8
-        if(run_frame > 6):
+
+        if (run_frame > 6):
             run_frame = 3
 
     update_canvas()
