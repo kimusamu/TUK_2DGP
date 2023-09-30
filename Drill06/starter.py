@@ -46,9 +46,9 @@ def character_move():
     else:
         clear_canvas()
         TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-        hand.draw(mx, my)
         character.clip_draw(frame * 100, 0, 100, 100, x, y, 100, 100)
         frame = (frame + 1) % 8
+        hand.draw(mx, my)
         update_canvas()
         delay(0.01)
 
