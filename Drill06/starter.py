@@ -9,7 +9,7 @@ hand = load_image('hand_arrow.png')
 
 def handle_events():
     global running
-    global x, y, hand_x, hand_y, mx, my
+    global x, y, mx, my
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -20,21 +20,8 @@ def handle_events():
             list_x.append(event.x)
             list_y.append(TUK_HEIGHT - 1 - event.y)
 
-running = True
-x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
-mx, my = TUK_WIDTH // 2, TUK_HEIGHT // 2
-go_x, go_y = TUK_WIDTH // 2, TUK_HEIGHT // 2
-frame = 0
-hand_x = 0
-hand_y = 0
-
-hide_cursor()
-
-list_x = []
-list_y = []
-
-while running:
-    handle_events()
+def character_move():
+    global list_x, list_y, go_x, go_y, x, y, frame
 
     if len(list_x) > 0:
         for i in range(1, 100 + 1, 1):
@@ -64,5 +51,22 @@ while running:
         frame = (frame + 1) % 8
         update_canvas()
         delay(0.01)
+
+running = True
+
+x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
+mx, my = TUK_WIDTH // 2, TUK_HEIGHT // 2
+go_x, go_y = TUK_WIDTH // 2, TUK_HEIGHT // 2
+
+frame = 0
+
+hide_cursor()
+
+list_x = []
+list_y = []
+
+while running:
+    handle_events()
+    character_move()
 
 close_canvas()
