@@ -20,37 +20,44 @@ def handle_events():
             list_x.append(event.x)
             list_y.append(TUK_HEIGHT - 1 - event.y)
 
+def draw_first():
+    clear_canvas()
+    TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+
+def draw_last():
+    update_canvas()
+    delay(0.01)
+
+def draw_char_hand():
+    global frame, list_x
+    character.clip_draw(frame * 100, 0, 100, 100, x, y, 100, 100)
+    frame = (frame + 1) % 8
+    hand.draw(mx, my)
+    if len(list_x) > 0:
+        for i in range(len(list_x)):
+            hand.draw(list_x[i], list_y[i])
+
 def character_move():
-    global list_x, list_y, go_x, go_y, x, y, frame
+    global list_x, list_y, go_x, go_y, x, y
 
     if len(list_x) > 0:
         for i in range(1, 100 + 1, 1):
-            clear_canvas()
-            TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+            draw_first()
             handle_events()
             t = i / 100
             x = (1 - t) * go_x + t * list_x[0]
             y = (1 - t) * go_y + t * list_y[0]
-            character.clip_draw(frame * 100, 0, 100, 100, x, y, 100, 100)
-            frame = (frame + 1) % 8
-            hand.draw(mx, my)
-            for i in range(len(list_x)):
-                hand.draw(list_x[i], list_y[i])
-            update_canvas()
-            delay(0.01)
+            draw_char_hand()
+            draw_last()
 
         if (x == list_x[0] and y == list_y[0]):
             del list_x[0], list_y[0]
             go_x, go_y = x, y
 
     else:
-        clear_canvas()
-        TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-        character.clip_draw(frame * 100, 0, 100, 100, x, y, 100, 100)
-        frame = (frame + 1) % 8
-        hand.draw(mx, my)
-        update_canvas()
-        delay(0.01)
+        draw_first()
+        draw_char_hand()
+        draw_last()
 
 running = True
 
