@@ -1,0 +1,5 @@
+git clone https://github.com/kimusamu/TUK_2DGP.git
+
+git subtree add --prefix=만들파인이름 주소 main
+
+git push origin HEAD:main --force
