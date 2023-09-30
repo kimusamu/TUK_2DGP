@@ -17,8 +17,11 @@ def handle_events():
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            list_x.append(event.x)
-            list_y.append(TUK_HEIGHT - 1 - event.y)
+            if event.button == SDL_BUTTON_LEFT:
+                list_x.append(event.x)
+                list_y.append(TUK_HEIGHT - 1 - event.y)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            running = False
 
 def draw_first():
     clear_canvas()
