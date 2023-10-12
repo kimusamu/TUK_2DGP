@@ -134,6 +134,12 @@ class AutoRun:
 
         boy.x += boy.dir * 5
 
+        if boy.x >= 800:
+            boy.dir, boy.action = -1, 0
+
+        elif boy.x <= 0:
+            boy.dir, boy.action = 1, 1
+
         if get_time() - boy.wait_time_idle > 5:
             boy.state_machine.handle_event(('TIME_OUT', 0))
 
