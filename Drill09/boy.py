@@ -2,7 +2,7 @@
 import math
 
 from pico2d import load_image, get_time
-from sdl2 import SDLK_SPACE, SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
+from sdl2 import SDLK_SPACE, SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT, SDLK_a
 
 
 def space_down(e):
@@ -24,7 +24,7 @@ def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
 def invincible_run_mode(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == 'a'
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 class Sleep:
 
@@ -111,13 +111,12 @@ class Run:
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
 
 
-class Inv_Run:
+class InvRun:
 
 
     @staticmethod
     def enter(boy, e):
         boy.wait_time_idle = get_time()
-        pass
 
     @staticmethod
     def exit(boy, e):
@@ -126,13 +125,18 @@ class Inv_Run:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * 10
-        if get_time() - boy.wait_time > 5:
-            boy.state_machine.handle_event(('SPACE_DOWN', 0))
+
+        if boy.action == 2:
+            boy.action = 0
+        elif boy.action == 3:
+            boy.action = 1
+
+        if get_time() - boy.wait_time_idle > 5:
+            boy.state_machine.handle_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 200, 200, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y + 30, 200, 200)
 
 
 class StateMachine:
@@ -140,7 +144,9 @@ class StateMachine:
         self.boy = boy
         self.cur_state = Idle
         self.table = {
-            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
+            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep,
+                   invincible_run_mode: InvRun},
+            InvRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
         }
