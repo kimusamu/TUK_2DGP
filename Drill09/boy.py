@@ -23,7 +23,7 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
-def auto_run(e):
+def a_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 class Sleep:
@@ -31,17 +31,14 @@ class Sleep:
     @staticmethod
     def enter(boy, e):
         boy.frame = 0
-        print('고개 숙이기')
 
     @staticmethod
     def exit(boy, e):
-        print('고개 들기')
         pass
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        print('드르렁')
 
     @staticmethod
     def draw(boy):
@@ -65,11 +62,9 @@ class Idle:
         boy.dir = 0
         boy.frame = 0
         boy.wait_time = get_time() # pico2d import 필요
-        print('고개 들기')
 
     @staticmethod
     def exit(boy, e):
-        print('고개 숙이기')
         pass
 
     @staticmethod
@@ -77,7 +72,6 @@ class Idle:
         boy.frame = (boy.frame + 1) % 8
         if get_time() - boy.wait_time > 2:
             boy.state_machine.handle_event(('TIME_OUT', 0))
-        print('공부 하기')
 
     @staticmethod
     def draw(boy):
@@ -90,21 +84,18 @@ class Run:
     def enter(boy, e):
         if right_down(e) or left_up(e): #오른쪽으로 RUN
             boy.dir, boy.action = 1, 1
-            print('오른쪽 간다')
+
         elif left_down(e) or right_up(e): #왼쪽으로 RUN
             boy.dir, boy.action = -1, 0
-            print('왼쪽 간다')
 
     @staticmethod
     def exit(boy ,e):
-        print('가만히 있거나 잘거다')
         pass
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 5
-        print('이동한다')
 
     @staticmethod
     def draw(boy):
@@ -123,7 +114,6 @@ class AutoRun:
             boy.dir, boy.action = 1, 1
 
         boy.wait_time_idle = get_time()
-        print('자동으로 움직여야지')
 
     @staticmethod
     def exit(boy, e):
@@ -134,7 +124,6 @@ class AutoRun:
         boy.frame = (boy.frame + 1) % 8
 
         boy.x += boy.dir * 20
-        print('자동으로 움직이는중')
 
         if boy.x >= 800:
             boy.dir, boy.action = -1, 0
@@ -144,7 +133,6 @@ class AutoRun:
 
         if get_time() - boy.wait_time_idle > 5:
             boy.state_machine.handle_event(('TIME_OUT', 0))
-            print('서야겠다')
 
     @staticmethod
     def draw(boy):
@@ -157,11 +145,11 @@ class StateMachine:
         self.cur_state = Idle
         self.table = {
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep,
-                   auto_run: AutoRun},
+                   a_down: AutoRun},
             AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle,
-                    auto_run: AutoRun},
+                    a_down: AutoRun},
         }
 
     def start(self):
