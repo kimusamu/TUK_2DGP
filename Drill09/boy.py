@@ -27,7 +27,6 @@ def a_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 class Sleep:
-
     @staticmethod
     def enter(boy, e):
         boy.frame = 0
@@ -52,7 +51,6 @@ class Sleep:
 
 
 class Idle:
-
     @staticmethod
     def enter(boy, e):
         if boy.action == 0:
@@ -79,7 +77,6 @@ class Idle:
 
 
 class Run:
-
     @staticmethod
     def enter(boy, e):
         if right_down(e) or left_up(e): #오른쪽으로 RUN
@@ -103,8 +100,6 @@ class Run:
 
 
 class AutoRun:
-
-
     @staticmethod
     def enter(boy, e):
         if boy.action == 2:
