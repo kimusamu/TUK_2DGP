@@ -123,6 +123,7 @@ class AutoRun:
             boy.dir, boy.action = 1, 1
 
         boy.wait_time_idle = get_time()
+        print('자동으로 움직여야지')
 
     @staticmethod
     def exit(boy, e):
@@ -132,7 +133,8 @@ class AutoRun:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
 
-        boy.x += boy.dir * 5
+        boy.x += boy.dir * 20
+        print('자동으로 움직이는중')
 
         if boy.x >= 800:
             boy.dir, boy.action = -1, 0
@@ -142,6 +144,7 @@ class AutoRun:
 
         if get_time() - boy.wait_time_idle > 5:
             boy.state_machine.handle_event(('TIME_OUT', 0))
+            print('서야겠다')
 
     @staticmethod
     def draw(boy):
