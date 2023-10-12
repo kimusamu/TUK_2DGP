@@ -160,7 +160,8 @@ class StateMachine:
                    auto_run: AutoRun},
             AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
-            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
+            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle,
+                    auto_run: AutoRun},
         }
 
     def start(self):
