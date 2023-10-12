@@ -111,6 +111,29 @@ class Run:
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
 
 
+class Inv_Run:
+
+
+    @staticmethod
+    def enter(boy, e):
+        boy.wait_time_idle = get_time()
+        pass
+
+    @staticmethod
+    def exit(boy, e):
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + 1) % 8
+        boy.x += boy.dir * 10
+        if get_time() - boy.wait_time > 5:
+            boy.state_machine.handle_event(('SPACE_DOWN', 0))
+
+    @staticmethod
+    def draw(boy):
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 200, 200, boy.x, boy.y)
+
 
 class StateMachine:
     def __init__(self, boy):
