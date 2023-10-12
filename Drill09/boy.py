@@ -23,7 +23,7 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
-def invincible_run_mode(e):
+def auto_run(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 class Sleep:
@@ -111,7 +111,7 @@ class Run:
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
 
 
-class InvRun:
+class AutoRun:
 
 
     @staticmethod
@@ -152,8 +152,8 @@ class StateMachine:
         self.cur_state = Idle
         self.table = {
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep,
-                   invincible_run_mode: InvRun},
-            InvRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle},
+                   auto_run: AutoRun},
+            AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
         }
