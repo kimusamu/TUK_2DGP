@@ -1,7 +1,7 @@
 from pico2d import *
 
 import game_world
-from grass import Grass
+from grass import Grass_1, Grass_2
 from boy import Boy
 
 
@@ -23,7 +23,8 @@ def handle_events():
 
 def create_world():
     global running
-    global grass
+    global grass_1
+    global grass_2
     global team
     global boy
 
@@ -32,8 +33,11 @@ def create_world():
     boy = Boy()
     game_world.add_object(boy, 1)
 
-    grass = Grass()
-    game_world.add_object(grass, 0)
+    grass_1 = Grass_1()
+    game_world.add_object(grass_1, 0)
+
+    grass_2 = Grass_2()
+    game_world.add_object(grass_2, 2)
 
 
 

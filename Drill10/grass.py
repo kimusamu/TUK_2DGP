@@ -1,12 +1,22 @@
 from pico2d import load_image
 
 
-class Grass:
+class Grass_1:
     def __init__(self):
         self.image = load_image('grass.png')
 
     def draw(self):
-        self.image.draw(400, 100)
+        self.image.draw(400, 80)
+
+    def update(self):
+        pass
+
+class Grass_2:
+    def __init__(self):
+        self.image = load_image('grass.png')
+
+    def draw(self):
+        self.image.draw(400, 30)
 
     def update(self):
         pass
