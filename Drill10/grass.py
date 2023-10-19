@@ -11,6 +11,7 @@ class Grass_1:
     def update(self):
         pass
 
+
 class Grass_2:
     def __init__(self):
         self.image = load_image('grass.png')

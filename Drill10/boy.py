@@ -60,7 +60,7 @@ class Idle:
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y - 30)
 
 
 
@@ -86,7 +86,7 @@ class Run:
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y - 30)
 
 
 
@@ -109,10 +109,10 @@ class Sleep:
     def draw(boy):
         if boy.face_dir == -1:
             boy.image.clip_composite_draw(boy.frame * 100, 200, 100, 100,
-                                          -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
+                                          -3.141592 / 2, '', boy.x + 25, boy.y - 55, 100, 100)
         else:
             boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100,
-                                          3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+                                          3.141592 / 2, '', boy.x - 25, boy.y - 55, 100, 100)
 
 
 class StateMachine:
@@ -169,7 +169,7 @@ class Boy:
         self.state_machine.draw()
 
     def fire_ball(self):
-        ball = Ball(self.x, self.y - 30, self.face_dir * 10)
+        ball = Ball(self.x, self.y, self.face_dir * 10)
         game_world.add_object(ball, 1)
         # 생성한 볼을 월드에 넣어줘야 된다.
         if self.face_dir == 1:
