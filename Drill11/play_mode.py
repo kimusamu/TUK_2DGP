@@ -21,7 +21,16 @@ def handle_events():
 def init():
     global grass
     global boy
-    global bird
+    global birds1
+    global birds2
+    global birds3
+    global birds4
+    global birds5
+    global birds6
+    global birds7
+    global birds8
+    global birds9
+    global birds10
 
     running = True
 
@@ -31,8 +40,36 @@ def init():
     boy = Boy()
     game_world.add_object(boy, 1)
 
-    bird = Bird()
-    game_world.add_object(bird, 1)
+
+    birds1 = Bird()
+    game_world.add_object(birds1, 1)
+
+    birds2 = Bird()
+    game_world.add_object(birds2, 1)
+
+    birds3 = Bird()
+    game_world.add_object(birds3, 1)
+
+    birds4 = Bird()
+    game_world.add_object(birds4, 1)
+
+    birds5 = Bird()
+    game_world.add_object(birds5, 1)
+
+    birds6 = Bird()
+    game_world.add_object(birds6, 1)
+
+    birds7 = Bird()
+    game_world.add_object(birds7, 1)
+
+    birds8 = Bird()
+    game_world.add_object(birds8, 1)
+
+    birds9 = Bird()
+    game_world.add_object(birds9, 1)
+
+    birds10 = Bird()
+    game_world.add_object(birds10, 1)
 
 
 
