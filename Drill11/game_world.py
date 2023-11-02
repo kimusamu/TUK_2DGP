@@ -1,4 +1,4 @@
-objects = [[] for _ in range(4)]
+objects = [[] for _ in range(5)]
 
 
 def add_object(o, depth = 0):
