@@ -65,6 +65,9 @@ class Zombie:
         return self.x - 70 * self.size, self.y - 100 * self.size, self.x + 70 * self.size, self.y + 100 * self.size
 
     def handle_collision(self, group, other):
+        if group == 'boy:zombie':
+            game_framework.quit()
+
         if group == 'zombie:ball':
             if other.velocity != 0:
                 self.size -= 0.5
