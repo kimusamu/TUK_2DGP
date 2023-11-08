@@ -19,4 +19,5 @@ class Ball:
         if self.x < 25 or self.x > 1600 - 25:
             game_world.remove_object(self)
 
-    # fill here
+    def get_bb(self):
+        return self.x - 10, self.y - 10, self.x + 10, self.y +10
