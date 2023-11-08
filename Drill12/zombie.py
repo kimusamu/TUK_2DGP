@@ -62,7 +62,7 @@ class Zombie:
         pass
 
     def get_bb(self):
-        return self.x - 80 * self.size, self.y - 100 * self.size, self.x + 80 * self.size, self.y + 100 * self.size
+        return self.x - 70 * self.size, self.y - 100 * self.size, self.x + 70 * self.size, self.y + 100 * self.size
 
     def handle_collision(self, group, other):
         if group == 'zombie:ball':
