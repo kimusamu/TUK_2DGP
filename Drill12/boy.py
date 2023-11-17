@@ -101,6 +101,7 @@ class Run:
     def exit(boy, e):
         if space_down(e):
             boy.fire_ball()
+            print('aaa')
 
         pass
 
