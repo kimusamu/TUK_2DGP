@@ -8,6 +8,7 @@ from ball import Ball
 import game_world
 import game_framework
 import server
+import collision
 
 
 # state event check
@@ -58,7 +59,7 @@ def time_out(e):
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_KMPH = 40.0  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -274,11 +275,15 @@ class Boy:
         self.font = load_font('ENCR10B.TTF', 24)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.x = server.background.w // 2
+        self.y = server.background.h // 2
         # fill here
 
 
     def update(self):
         self.state_machine.update()
+        self.x = clamp(50, self.x, server.background.w - 50)
+        self.y = clamp(50, self.y, server.background.h - 50)
         # fill here
 
 
@@ -287,10 +292,18 @@ class Boy:
 
     def draw(self):
         # fill here
+        # sx = server.background.cw // 2
+        # sy = server.background.ch // 2
+        sx = self.x - server.background.window_left
+        sy = self.y - server.background.window_bottom
+        self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
+        draw_rectangle(*self.get_bb())
         pass
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+        sx = self.x - server.background.window_left
+        sy = self.y - server.background.window_bottom
+        return sx - 20, sy - 40, sx + 20, sy + 40
 
     def handle_collision(self, group, other):
         pass
